@@ -1,0 +1,9 @@
+# Everything the reproduction harness needs beyond the package itself.
+# The package's own runtime dependency is numpy>=1.21.
+#
+# The published numbers were produced with numpy 2.2.6. numpy 2.5 changed how
+# large binomials are drawn, so from that release exact counts move and rates
+# agree within Monte Carlo error only. numpy 2.3 and 2.4 give the same stream as
+# 2.2.6. The pin reproduces the published record exactly.
+numpy==2.2.6
+matplotlib>=3.5      # stage 6, the figures

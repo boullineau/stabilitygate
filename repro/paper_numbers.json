@@ -1,0 +1,1168 @@
+{
+  "_comment": [
+    "Every published number, with the recipe that recomputes it.",
+    "repro/check_paper_numbers.py reads this file, runs each recipe against the",
+    "outputs the reproduction stages wrote, and exits non-zero on any FAIL.",
+    "Tolerances are Monte Carlo at two standard errors on the reported quantity.",
+    "Integer counts carry a tolerance of zero.",
+    "A claim whose input file is absent is SKIPPED rather than FAILED, which is",
+    "how the Appendix F rows behave when the MD-Agreement corpus is not present."
+  ],
+  "seed": 20260101,
+  "claims": [
+    {
+      "id": "paper_worked_gpt_5.5_lambda_point",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.29,
+      "tolerance": 0.005,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "gpt-5.5",
+        "field": "lambda_point"
+      },
+      "note": "lambda = .29 for the excluded model"
+    },
+    {
+      "id": "paper_worked_gpt_5.5_pearson_r",
+      "source": "main.tex Section 3, The inversion",
+      "claim": -0.135,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "gpt-5.5",
+        "field": "pearson_r"
+      },
+      "note": "observed correlation of the excluded model"
+    },
+    {
+      "id": "paper_worked_gpt_5.5_mean_abs_drift",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.018,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "gpt-5.5",
+        "field": "mean_abs_drift"
+      },
+      "note": "smallest mean absolute between-run change"
+    },
+    {
+      "id": "paper_worked_gpt_5.5_p_fail_if_stable",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.839,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "gpt-5.5",
+        "field": "p_fail_if_stable"
+      },
+      "note": "no-drift bootstrap fails the registered screen in 83.9% of draws"
+    },
+    {
+      "id": "paper_worked_claude_opus_4_7_mean_abs_drift",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.129,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "claude-opus-4-7",
+        "field": "mean_abs_drift"
+      },
+      "note": "largest mean absolute change"
+    },
+    {
+      "id": "paper_worked_claude_opus_4_7_max_abs_drift",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.55,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "claude-opus-4-7",
+        "field": "max_abs_drift"
+      },
+      "note": "one condition moved .55"
+    },
+    {
+      "id": "paper_worked_claude_opus_4_7_pearson_r",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 0.886,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "claude-opus-4-7",
+        "field": "pearson_r"
+      },
+      "note": "the admitted model correlated at .886"
+    },
+    {
+      "id": "paper_worked_gpt_identical_conditions",
+      "source": "main.tex Section 3, The inversion",
+      "claim": 10,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "stabilitygate/data/four_model_stability.csv via stabilitygate.screen_dataframe",
+      "recipe": "worked_case",
+      "args": {
+        "model": "gpt-5.5",
+        "field": "identical_conditions"
+      },
+      "note": "10 of 14 conditions exactly unchanged for the excluded model"
+    },
+    {
+      "id": "paper_table4_pearson_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.763,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "pearson",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_spearman_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.954,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "spearman",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_ccc_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.816,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "ccc",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_absdrift_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.287,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "absdrift",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_chi2_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.05,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "chi2",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_logit_median",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.035,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "logit",
+        "stat": "median"
+      },
+      "note": "median false exclusion under no drift over the 252 stable configurations"
+    },
+    {
+      "id": "paper_table4_chi2_min",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.038,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "chi2",
+        "stat": "min"
+      },
+      "note": "the calibrated screen's range, low end"
+    },
+    {
+      "id": "paper_table4_chi2_max",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.064,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "chi2",
+        "stat": "max"
+      },
+      "note": "the calibrated screen's range, high end"
+    },
+    {
+      "id": "paper_table4_logit_max",
+      "source": "main.tex Table 4, All six screens under no drift",
+      "claim": 0.796,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_stat",
+      "args": {
+        "screen": "logit",
+        "stat": "max"
+      },
+      "note": "the mean log-odds rule reaches .796"
+    },
+    {
+      "id": "paper_grid_stable_configurations",
+      "source": "main.tex Appendix A",
+      "claim": 252,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_count",
+      "args": {
+        "what": "stable"
+      },
+      "note": "252 stable configurations"
+    },
+    {
+      "id": "paper_grid_rows",
+      "source": "main.tex Appendix A",
+      "claim": 1260,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/simulation_grid.csv",
+      "recipe": "grid_count",
+      "args": {
+        "what": "rows"
+      },
+      "note": "1,260 rows, 252 in each of five modes"
+    },
+    {
+      "id": "paper_table1_reg_fe_p50",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.945,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.5
+      },
+      "note": "registered rule excludes stable at p0 = 0.5"
+    },
+    {
+      "id": "paper_table1_pw_p_p50",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.066,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.5
+      },
+      "note": "correlation power at p0 = 0.5"
+    },
+    {
+      "id": "paper_table1_pw_c_p50",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.971,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.5
+      },
+      "note": "unsigned power at p0 = 0.5"
+    },
+    {
+      "id": "paper_table1_thr_p50",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.151,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.5
+      },
+      "note": "calibrated correlation threshold at p0 = 0.5"
+    },
+    {
+      "id": "paper_table1_reg_fe_p70",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.956,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.7
+      },
+      "note": "registered rule excludes stable at p0 = 0.7"
+    },
+    {
+      "id": "paper_table1_pw_p_p70",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.09,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.7
+      },
+      "note": "correlation power at p0 = 0.7"
+    },
+    {
+      "id": "paper_table1_pw_c_p70",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.881,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.7
+      },
+      "note": "unsigned power at p0 = 0.7"
+    },
+    {
+      "id": "paper_table1_thr_p70",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.083,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.7
+      },
+      "note": "calibrated correlation threshold at p0 = 0.7"
+    },
+    {
+      "id": "paper_table1_reg_fe_p85",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.975,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.85
+      },
+      "note": "registered rule excludes stable at p0 = 0.85"
+    },
+    {
+      "id": "paper_table1_pw_p_p85",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.102,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.85
+      },
+      "note": "correlation power at p0 = 0.85"
+    },
+    {
+      "id": "paper_table1_pw_c_p85",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.541,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.85
+      },
+      "note": "unsigned power at p0 = 0.85"
+    },
+    {
+      "id": "paper_table1_thr_p85",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": -0.068,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.85
+      },
+      "note": "calibrated correlation threshold at p0 = 0.85"
+    },
+    {
+      "id": "paper_table1_reg_fe_p90",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.986,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.9
+      },
+      "note": "registered rule excludes stable at p0 = 0.9"
+    },
+    {
+      "id": "paper_table1_pw_p_p90",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.096,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.9
+      },
+      "note": "correlation power at p0 = 0.9"
+    },
+    {
+      "id": "paper_table1_pw_c_p90",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.316,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.9
+      },
+      "note": "unsigned power at p0 = 0.9"
+    },
+    {
+      "id": "paper_table1_thr_p90",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": -0.158,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.9
+      },
+      "note": "calibrated correlation threshold at p0 = 0.9"
+    },
+    {
+      "id": "paper_table1_reg_fe_p95",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.993,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.95
+      },
+      "note": "registered rule excludes stable at p0 = 0.95"
+    },
+    {
+      "id": "paper_table1_pw_p_p95",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.082,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.95
+      },
+      "note": "correlation power at p0 = 0.95"
+    },
+    {
+      "id": "paper_table1_pw_c_p95",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.085,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.95
+      },
+      "note": "unsigned power at p0 = 0.95"
+    },
+    {
+      "id": "paper_table1_thr_p95",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": -0.275,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.95
+      },
+      "note": "calibrated correlation threshold at p0 = 0.95"
+    },
+    {
+      "id": "paper_table1_reg_fe_p98",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.993,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.98
+      },
+      "note": "registered rule excludes stable at p0 = 0.98"
+    },
+    {
+      "id": "paper_table1_pw_p_p98",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.131,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.98
+      },
+      "note": "correlation power at p0 = 0.98"
+    },
+    {
+      "id": "paper_table1_pw_c_p98",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.018,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.98
+      },
+      "note": "unsigned power at p0 = 0.98"
+    },
+    {
+      "id": "paper_table1_thr_p98",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": -0.351,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.98
+      },
+      "note": "calibrated correlation threshold at p0 = 0.98"
+    },
+    {
+      "id": "paper_table1_reg_fe_p99",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.988,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "reg_fe",
+        "baseline": 0.99
+      },
+      "note": "registered rule excludes stable at p0 = 0.99"
+    },
+    {
+      "id": "paper_table1_pw_p_p99",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.352,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p",
+        "baseline": 0.99
+      },
+      "note": "correlation power at p0 = 0.99"
+    },
+    {
+      "id": "paper_table1_pw_c_p99",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": 0.013,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c",
+        "baseline": 0.99
+      },
+      "note": "unsigned power at p0 = 0.99"
+    },
+    {
+      "id": "paper_table1_thr_p99",
+      "source": "main.tex Table 1, Operating characteristics at the realised design",
+      "claim": -0.286,
+      "tolerance": 0.004,
+      "tolerance_basis": "monte_carlo_2se_at_20000_replicates",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "thr",
+        "baseline": 0.99
+      },
+      "note": "calibrated correlation threshold at p0 = 0.99"
+    },
+    {
+      "id": "appendix_c_scramble_pearson",
+      "source": "main.tex Appendix C, A result we do not lead with",
+      "claim": 0.692,
+      "tolerance": 0.0113,
+      "tolerance_basis": "monte_carlo_2se_of_a_difference_of_two_20000_replicate_runs",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_p_scramble",
+        "baseline": 0.5
+      },
+      "note": "correlation power against a pure rank permutation at p0 = .50. The published value came from a run whose stream was never written out, so this is an independent replicate and the tolerance is that of a difference of two runs"
+    },
+    {
+      "id": "appendix_c_scramble_unsigned",
+      "source": "main.tex Appendix C, A result we do not lead with",
+      "claim": 0.632,
+      "tolerance": 0.0113,
+      "tolerance_basis": "monte_carlo_2se_of_a_difference_of_two_20000_replicate_runs",
+      "computed_from": "results/fig3_values.json",
+      "recipe": "fig3",
+      "args": {
+        "series": "pw_c_scramble",
+        "baseline": 0.5
+      },
+      "note": "unsigned power against the same permutation at p0 = .50"
+    },
+    {
+      "id": "readme_pooled_conditional_size",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.0501,
+      "tolerance": 0.002,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "pooled_conditional_size",
+      "args": {
+        "quantity": "rate"
+      },
+      "note": "excluded over resolvable, pooled across the 252 stable configurations"
+    },
+    {
+      "id": "readme_resolvable_draws",
+      "source": "README.md, Operating characteristics",
+      "claim": 645061,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "pooled_conditional_size",
+      "args": {
+        "quantity": "draws"
+      },
+      "note": "the exact count from the joint integers. Recomputing the denominator from marginals rounded to four decimal places gives 645,063"
+    },
+    {
+      "id": "readme_max_conditional_size",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.2936,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "conditional_size",
+      "args": {
+        "stat": "max"
+      },
+      "note": "worst per-configuration conditional size"
+    },
+    {
+      "id": "readme_configs_size_over_10",
+      "source": "README.md, Operating characteristics",
+      "claim": 41,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "conditional_size",
+      "args": {
+        "stat": "count",
+        "threshold": 0.1
+      },
+      "note": "configurations whose conditional size exceeds .10"
+    },
+    {
+      "id": "readme_configs_well_resolved",
+      "source": "README.md, Operating characteristics",
+      "claim": 124,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "size_by_resolution",
+      "args": {
+        "subset": "well_resolved",
+        "quantity": "configurations"
+      },
+      "note": "split at an indeterminate share of .10 under stability"
+    },
+    {
+      "id": "readme_size_well_resolved",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.048,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "size_by_resolution",
+      "args": {
+        "subset": "well_resolved",
+        "quantity": "size"
+      },
+      "note": "pooled conditional size within the subset"
+    },
+    {
+      "id": "readme_configs_poorly_resolved",
+      "source": "README.md, Operating characteristics",
+      "claim": 128,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "size_by_resolution",
+      "args": {
+        "subset": "poorly_resolved",
+        "quantity": "configurations"
+      },
+      "note": "split at an indeterminate share of .10 under stability"
+    },
+    {
+      "id": "readme_size_poorly_resolved",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.056,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "size_by_resolution",
+      "args": {
+        "subset": "poorly_resolved",
+        "quantity": "size"
+      },
+      "note": "pooled conditional size within the subset"
+    },
+    {
+      "id": "readme_false_admission_conditional_count",
+      "source": "README.md, Operating characteristics",
+      "claim": 50,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "false_admission",
+      "args": {
+        "denominator": "conditional",
+        "stat": "count"
+      },
+      "note": "configurations admitting a one-logit shifted model on over 5% of resolvable draws"
+    },
+    {
+      "id": "readme_false_admission_conditional_max",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.9194,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "false_admission",
+      "args": {
+        "denominator": "conditional",
+        "stat": "max"
+      },
+      "note": "the worst such configuration"
+    },
+    {
+      "id": "readme_false_admission_unconditional_count",
+      "source": "README.md, Operating characteristics",
+      "claim": 19,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "false_admission",
+      "args": {
+        "denominator": "unconditional",
+        "stat": "count"
+      },
+      "note": "the same count on all draws rather than resolvable ones"
+    },
+    {
+      "id": "readme_false_admission_unconditional_max",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.4098,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "false_admission",
+      "args": {
+        "denominator": "unconditional",
+        "stat": "max"
+      },
+      "note": "the worst, unconditionally"
+    },
+    {
+      "id": "readme_indeterminate_median",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.1082,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "indeterminate",
+      "args": {
+        "stat": "median"
+      },
+      "note": "abstention under stability, median over the grid"
+    },
+    {
+      "id": "readme_indeterminate_max",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.9988,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "indeterminate",
+      "args": {
+        "stat": "max"
+      },
+      "note": "abstention in the worst-resolved configuration"
+    },
+    {
+      "id": "readme_power_well_resolved_proposed",
+      "source": "README.md, Operating characteristics",
+      "claim": 1.0,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "well_resolved",
+      "args": {
+        "who": "proposed",
+        "quantity": "power"
+      },
+      "note": "median conditional power against a positive one-logit shift, 124 configurations"
+    },
+    {
+      "id": "readme_power_well_resolved_incumbent",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.1618,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "well_resolved",
+      "args": {
+        "who": "incumbent",
+        "quantity": "power"
+      },
+      "note": "the fixed r > .80 gate on the same configurations, unconditional gate rate, which is the published construction"
+    },
+    {
+      "id": "readme_size_well_resolved_proposed",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.0487,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "well_resolved",
+      "args": {
+        "who": "proposed",
+        "quantity": "size"
+      },
+      "note": "matched median realised size"
+    },
+    {
+      "id": "readme_size_well_resolved_incumbent",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.0583,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "well_resolved",
+      "args": {
+        "who": "incumbent",
+        "quantity": "size"
+      },
+      "note": "the incumbent's matched size"
+    },
+    {
+      "id": "readme_incumbent_median_positive",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.857,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "incumbent_full_grid",
+      "args": {
+        "mode": "shift_1.0"
+      },
+      "note": "incumbent over all 252, positive shift"
+    },
+    {
+      "id": "readme_incumbent_median_negative",
+      "source": "README.md, Operating characteristics",
+      "claim": 0.7127,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "incumbent_full_grid",
+      "args": {
+        "mode": "shift_-1.0"
+      },
+      "note": "incumbent over all 252, negative shift"
+    },
+    {
+      "id": "readme_direction_symmetry_positive",
+      "source": "README.md, Operating characteristics",
+      "claim": 1.0,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "direction_symmetry",
+      "args": {
+        "mode": "shift_1.0"
+      },
+      "note": "median conditional power in each direction, the screen has no preferred one"
+    },
+    {
+      "id": "readme_direction_symmetry_negative",
+      "source": "README.md, Operating characteristics",
+      "claim": 1.0,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_design.csv",
+      "recipe": "direction_symmetry",
+      "args": {
+        "mode": "shift_-1.0"
+      },
+      "note": "median conditional power in each direction, the screen has no preferred one"
+    },
+    {
+      "id": "joint_rows_partition_n_rep",
+      "source": "joint counts of the gate and the screen on the same draws",
+      "claim": 1,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "joint_rows_partition",
+      "note": "every row's six screen-by-gate cells sum to its replicate count"
+    },
+    {
+      "id": "joint_incumbent_conditional_false_exclusion",
+      "source": "joint counts of the gate and the screen on the same draws",
+      "claim": 0.348,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "incumbent_pooled_conditional",
+      "args": {
+        "mode": "stable"
+      },
+      "note": "the like-for-like comparison against the screen's .0501. It is not recoverable from the marginals, whose closest proxy is .3611. The joint counts recover it"
+    },
+    {
+      "id": "joint_incumbent_conditional_power",
+      "source": "joint counts of the gate and the screen on the same draws",
+      "claim": 0.1616,
+      "tolerance": 0.008,
+      "tolerance_basis": "monte_carlo_2se_at_4000_replicates",
+      "computed_from": "results/extension_joint_counts.csv",
+      "recipe": "well_resolved",
+      "args": {
+        "who": "incumbent_conditional",
+        "quantity": "power"
+      },
+      "note": "the incumbent's power on screen-resolvable draws only, against the unconditional .1618 the paper publishes"
+    },
+    {
+      "id": "appendix_f_corpus_items",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 9814,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "corpus_items"
+      },
+      "note": "items in the corpus"
+    },
+    {
+      "id": "appendix_f_annotators",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 819,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "annotators"
+      },
+      "note": "annotators in the pool"
+    },
+    {
+      "id": "appendix_f_single_annotator_removal_events",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 49070,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "single_annotator_removal_events"
+      },
+      "note": "single-annotator removals"
+    },
+    {
+      "id": "appendix_f_tie_events",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 8433,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "tie_events"
+      },
+      "note": "removals leaving a two-two split"
+    },
+    {
+      "id": "appendix_f_unique_items_that_can_tie",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 2811,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "unique_items_that_can_tie"
+      },
+      "note": "distinct items that can reach a tie"
+    },
+    {
+      "id": "appendix_f_literal_k_flips_offensive_to_not",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 3843,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "literal_k_flips_offensive_to_not"
+      },
+      "note": "flips under a literal k = 3"
+    },
+    {
+      "id": "appendix_f_literal_k_flips_not_to_offensive",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 0,
+      "integer": true,
+      "tolerance": 0,
+      "tolerance_basis": "exact_integer",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "literal_k_flips_not_to_offensive"
+      },
+      "note": "flips the other way, none are possible"
+    },
+    {
+      "id": "appendix_f_tie_event_rate",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 0.172,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "tie_event_rate"
+      },
+      "note": "17.2% of all removal events"
+    },
+    {
+      "id": "appendix_f_exposed_share",
+      "source": "main.tex Section 5 and Appendix F, panel loss",
+      "claim": 0.286,
+      "tolerance": 0.001,
+      "tolerance_basis": "deterministic_recomputation",
+      "computed_from": "results/mdagreement_summary.json",
+      "recipe": "panel",
+      "args": {
+        "field": "exposed_share_of_corpus"
+      },
+      "note": "28.6% of the corpus"
+    }
+  ]
+}
