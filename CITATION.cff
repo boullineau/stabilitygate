@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: If you use this software, please cite both the software and the paper below.
+type: software
+title: "stabilitygate: a three-outcome test-retest stability screen for repeated-call LLM experiments"
+abstract: >-
+  A correlation-based test-retest gate becomes uninformative, and at saturated
+  baselines inverted, when matched cells hold too little reliable between-cell
+  variance for a correlation to read. stabilitygate replaces that gate with a
+  screen returning one of three verdicts, no_drift_detected, FAIL or
+  INDETERMINATE, together with a design-time calibration routine that reports the
+  operating characteristics of a planned design before any data are collected.
+  The admitting verdict is a failure to reject a no-drift null rather than a
+  rejection of consequential drift, and the package is not an equivalence test.
+  Its measured operating characteristics are scoped by name to the configuration
+  stabilitygate.presets.OC_2026_08_28 and are reported in full in the README.
+version: 0.1.0
+date-released: "2026-11-22"
+license: MIT
+repository-code: "https://github.com/boullineau/stabilitygate"
+url: "https://judgmentalism.org/stabilitygate/"
+keywords:
+  - large language models
+  - evaluation
+  - test-retest reliability
+  - restriction of range
+  - reproducibility
+  - psychometrics
+authors:
+  - given-names: Emile
+    family-names: Boullineau
+    orcid: "https://orcid.org/0009-0001-1500-4990"
+  - given-names: José Daniel
+    family-names: Muñoz Arciniegas
+    orcid: "https://orcid.org/0009-0003-4772-2617"
+preferred-citation:
+  type: conference-paper
+  title: "The Screen Decides the Verdict: Operating Characteristics of Model-Exclusion Rules in LLM Evaluation"
+  year: 2026
+  collection-title: "Can We Trust AI Evaluation? (TAE) Workshop at NeurIPS 2026"
+  doi: "10.5281/zenodo.21366659"
+  authors:
+    - given-names: Emile
+      family-names: Boullineau
+      orcid: "https://orcid.org/0009-0001-1500-4990"
+    - given-names: José Daniel
+      family-names: Muñoz Arciniegas
+      orcid: "https://orcid.org/0009-0003-4772-2617"

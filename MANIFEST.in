@@ -1,0 +1,18 @@
+# The sdist is a complete source distribution, so it carries the tests, the
+# reproduction harness and the release metadata. The wheel carries none of them,
+# which the continuous-integration build job asserts.
+include LICENSE CHANGELOG.md CITATION.cff MANIFEST.in
+include stabilitygate/py.typed stabilitygate/data/LICENSE
+recursive-include tests *.py
+recursive-include repro *.py *.json *.sh *.md *.txt
+include repro/default_grid.csv
+
+# repro/expected/ holds reference outputs for the paper's numbers. It is
+# regenerated locally from the scripts and the seed and is not redistributed.
+# See repro/_ensure_expected.py.
+prune repro/expected
+
+recursive-include .github *.yml
+prune results
+prune figures
+global-exclude __pycache__ *.py[cod] .DS_Store
