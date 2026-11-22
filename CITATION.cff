@@ -14,6 +14,7 @@ abstract: >-
   Its measured operating characteristics are scoped by name to the configuration
   stabilitygate.presets.OC_2026_08_28 and are reported in full in the README.
 version: 0.1.0
+doi: "10.5281/zenodo.24437497"
 date-released: "2026-11-22"
 license: MIT
 repository-code: "https://github.com/boullineau/stabilitygate"

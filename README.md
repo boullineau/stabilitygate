@@ -541,6 +541,10 @@ design and inclusion, not a claim about why a model changed.
 
 Cite the software and the paper that measures it.
 
+> Boullineau, E., & Muñoz Arciniegas, J. D. (2026). *stabilitygate: a three-outcome
+> test-retest stability screen for repeated-call LLM experiments* (Version 0.1.0)
+> [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24437497
+
 > Boullineau, E., & Muñoz Arciniegas, J. D. (2026). *The Screen Decides the
 > Verdict: Operating Characteristics of Model-Exclusion Rules in LLM Evaluation*.
 > Can We Trust AI Evaluation? (TAE) Workshop at NeurIPS 2026.
