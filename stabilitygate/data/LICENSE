@@ -1,0 +1,12 @@
+The data file in this directory, four_model_stability.csv, is released under the
+Creative Commons Attribution 4.0 International licence (CC BY 4.0).
+
+    https://creativecommons.org/licenses/by/4.0/
+
+The code in this package is released under the MIT licence, in the LICENSE file
+at the repository root. This directory carries its own licence because the
+file here is data rather than code.
+
+It holds the worked case of the method paper, 4 models by 14 matched conditions,
+with a main-run rate, a re-run rate and the calls behind each. It contains no
+participant data, no provider payloads, no prompts and no raw call logs.
