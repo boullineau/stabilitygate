@@ -1,0 +1,99 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: tests, python ${{ matrix.python-version }}${{ matrix.numpy && format(', numpy {0}', matrix.numpy) || '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+        numpy: [""]
+        include:
+          # verify the declared floor is real rather than aspirational
+          - python-version: "3.9"
+            numpy: "1.21.0"
+          # the version the published numbers were produced with, under which
+          # the exact-count tests run rather than skip
+          - python-version: "3.11"
+            numpy: "2.2.6"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip "setuptools>=77.0.3"
+          python -m pip install -e ".[test]" pytest-cov pyyaml
+      - name: Pin numpy
+        if: matrix.numpy != ''
+        # scipy is optional and its current releases need a newer numpy than the
+        # floor, so the pinned jobs run without it
+        run: |
+          python -m pip uninstall -y scipy
+          python -m pip install "numpy==${{ matrix.numpy }}"
+      - name: Report the environment
+        run: python -c "import sys, numpy; print(sys.version); print('numpy', numpy.__version__)"
+      - name: Tests and coverage
+        run: pytest -q --cov=stabilitygate --cov-report=term-missing --cov-fail-under=90
+
+  reproduction:
+    name: reproduction smoke run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip "setuptools>=77.0.3"
+          python -m pip install -e .
+          python -m pip install -r repro/requirements-repro.txt
+      - name: Reduced-replicate run of all seven stages
+        env:
+          SG_QUICK: "1"
+        run: bash repro/reproduce.sh
+      - name: Verify the reference outputs
+        run: python repro/check_paper_numbers.py --results repro/expected
+
+  build:
+    name: build and metadata check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install the build tools
+        run: python -m pip install --upgrade pip build "twine>=6.1.0"
+      - name: Build
+        run: python -m build
+      - name: Check the metadata
+        run: twine check dist/*
+      - name: The wheel carries no tests, no reproduction harness and no caches
+        run: |
+          python - <<'PY'
+          import pathlib, sys, zipfile
+          wheel = next(pathlib.Path("dist").glob("*.whl"))
+          names = zipfile.ZipFile(wheel).namelist()
+          forbidden = [n for n in names if n.startswith(("tests/", "repro/", "results/", "figures/"))
+                       or "__pycache__" in n or n.endswith((".DS_Store", ".pyc"))
+                       or ".egg-info/" in n]
+          if forbidden:
+              sys.exit("the wheel carries files it should not: " + ", ".join(forbidden))
+          for required in ("stabilitygate/py.typed", "stabilitygate/presets.py",
+                           "stabilitygate/data/four_model_stability.csv",
+                           "stabilitygate/data/LICENSE"):
+              if required not in names:
+                  sys.exit(f"the wheel is missing {required}")
+          print(f"{wheel.name} carries {len(names)} files and is clean")
+          PY
