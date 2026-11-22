@@ -10,16 +10,22 @@ permissions:
 jobs:
   test:
     name: tests, python ${{ matrix.python-version }}${{ matrix.numpy && format(', numpy {0}', matrix.numpy) || '' }}
-    runs-on: ubuntu-latest
+    # the newest runner image no longer carries Python 3.9, so the 3.9 jobs
+    # name an image that does
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.11", "3.13"]
         numpy: [""]
         include:
+          - python-version: "3.9"
+            numpy: ""
+            os: ubuntu-24.04
           # verify the declared floor is real rather than aspirational
           - python-version: "3.9"
             numpy: "1.21.0"
+            os: ubuntu-24.04
           # the version the published numbers were produced with, under which
           # the exact-count tests run rather than skip
           - python-version: "3.11"
